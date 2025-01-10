@@ -1,24 +1,24 @@
-'use client';
+"use client";
+import { RootState } from "@/redux/Store";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { FiSearch, FiShoppingCart, FiUser } from "react-icons/fi";
+import { FiSearch, FiShoppingCart } from "react-icons/fi";
+import { useSelector } from "react-redux";
 
-export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+const Navbar: React.FC = () => {
+
+  const cartItems = useSelector((state: RootState) => state.cart);
+  const cartCount = cartItems.length;
+ const [isOpen, setIsOpen] = useState(false);
 
   return (
     <header className="w-full body-font bg-gray-900 shadow-md">
       <div className="container mx-auto flex flex-wrap p-1 items-center justify-between max-w-7xl">
         {/* Logo */}
-       
-<div className="font-bold text-xl tracking-wide">
-          <Image
-            alt="logo"
-            src="/logo.png"
-            height={100}
-            width={100}
-          />
+
+        <div className="font-bold text-xl tracking-wide">
+          <Image alt="logo" src="/logo.png" height={100} width={100} />
         </div>
 
         {/* Hamburger Menu Button */}
@@ -32,41 +32,39 @@ export default function Navbar() {
 
         {/* Navigation Links */}
         <nav className="hidden md:flex space-x-8">
-          <Link
-            href="/"
-            className="text-white "
-          >
+          <Link href="/" className="text-white ">
             Home
           </Link>
 
-          <Link
-            href="/products"
-            className=" text-white "
-          >
+          <Link href="/products" className=" text-white ">
             Products
           </Link>
 
-          <Link
-            href="/contact"
-            className=" text-white pr-56"
-          >
+          <Link href="/contact" className=" text-white pr-56">
             Contact
           </Link>
 
-{/* Search Bar and Icons */}
-<div className="flex items-center space-x-4">
-        <div className="hidden md:flex items-center bg-[#F7EDE4] rounded-full px-4 py-2 w-[400px]">
-          <FiSearch className="text-gray-500 text-lg mr-2" />
-          <input
-            type="text"
-            placeholder="Search for products..."
-            className="bg-transparent focus:outline-none text-sm placeholder-gray-500 w-full"
-          />
-        </div>
-        <FiShoppingCart className="text-2xl cursor-pointer text-white" />
-        <FiUser className="text-2xl cursor-pointer text-white" />
-      </div>
-    
+          {/* Search Bar and Icons */}
+          <div className="flex items-center space-x-4">
+            <div className="hidden md:flex items-center bg-[#F7EDE4] rounded-full px-4 py-2 w-[400px]">
+              <FiSearch className="text-gray-500 text-lg mr-2" />
+              <input
+                type="text"
+                placeholder="Search for products..."
+                className="bg-transparent focus:outline-none text-sm placeholder-gray-500 w-full"
+              />
+            </div>
+            <Link href="/cart">
+          <div className="relative">
+            <FiShoppingCart className="text-2xl cursor-pointer text-white" />
+            {cartCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                {cartCount}
+              </span>
+            )}
+          </div>
+        </Link>
+          </div>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -112,4 +110,4 @@ export default function Navbar() {
     </header>
   );
 }
-
+export default Navbar;
