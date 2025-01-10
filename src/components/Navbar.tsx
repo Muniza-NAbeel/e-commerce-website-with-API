@@ -15,6 +15,22 @@ const Navbar: React.FC = () => {
   return (
     <header className="w-full body-font bg-gray-900 shadow-md">
       <div className="container mx-auto flex flex-wrap p-1 items-center justify-between max-w-7xl">
+        
+        {/* Cart for mobile Screen */}
+
+      <div className="flex pl-2 pr-20 md:hidden">
+      <Link href="/cart">
+          <div className="relative">
+            <FiShoppingCart className="text-2xl cursor-pointer text-white" />
+            {cartCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                {cartCount}
+              </span>
+            )}
+          </div>
+        </Link>
+      </div>
+
         {/* Logo */}
 
         <div className="font-bold text-xl tracking-wide">
